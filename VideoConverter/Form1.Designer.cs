@@ -37,6 +37,9 @@
             this.toFormatcomboBox = new System.Windows.Forms.ComboBox();
             this.fromFormatlabel = new System.Windows.Forms.Label();
             this.toFormatlabel = new System.Windows.Forms.Label();
+            this.Processinglabel = new System.Windows.Forms.Label();
+            this.Progresslabel = new System.Windows.Forms.Label();
+            this.progressBar = new System.Windows.Forms.ProgressBar();
             this.SuspendLayout();
             // 
             // OpenFilebutton
@@ -135,11 +138,41 @@
             this.toFormatlabel.TabIndex = 7;
             this.toFormatlabel.Text = "Convert To";
             // 
+            // Processinglabel
+            // 
+            this.Processinglabel.AutoSize = true;
+            this.Processinglabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F);
+            this.Processinglabel.Location = new System.Drawing.Point(12, 229);
+            this.Processinglabel.Name = "Processinglabel";
+            this.Processinglabel.Size = new System.Drawing.Size(154, 18);
+            this.Processinglabel.TabIndex = 8;
+            this.Processinglabel.Text = "Currently Processing: ";
+            // 
+            // Progresslabel
+            // 
+            this.Progresslabel.AutoSize = true;
+            this.Progresslabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F);
+            this.Progresslabel.Location = new System.Drawing.Point(12, 247);
+            this.Progresslabel.Name = "Progresslabel";
+            this.Progresslabel.Size = new System.Drawing.Size(189, 18);
+            this.Progresslabel.TabIndex = 9;
+            this.Progresslabel.Text = "Progress 00:00:00/00:00:00";
+            // 
+            // progressBar
+            // 
+            this.progressBar.Location = new System.Drawing.Point(12, 268);
+            this.progressBar.Name = "progressBar";
+            this.progressBar.Size = new System.Drawing.Size(410, 23);
+            this.progressBar.TabIndex = 10;
+            // 
             // VideoConverterForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(434, 411);
+            this.Controls.Add(this.progressBar);
+            this.Controls.Add(this.Progresslabel);
+            this.Controls.Add(this.Processinglabel);
             this.Controls.Add(this.toFormatlabel);
             this.Controls.Add(this.fromFormatlabel);
             this.Controls.Add(this.toFormatcomboBox);
@@ -165,6 +198,9 @@
         private System.Windows.Forms.ComboBox toFormatcomboBox;
         private System.Windows.Forms.Label fromFormatlabel;
         private System.Windows.Forms.Label toFormatlabel;
+        private System.Windows.Forms.Label Processinglabel;
+        private System.Windows.Forms.Label Progresslabel;
+        private System.Windows.Forms.ProgressBar progressBar;
     }
 }
 

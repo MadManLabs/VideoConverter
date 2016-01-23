@@ -7,6 +7,10 @@ namespace VideoConverter
 {
     public class Converter
     {
+
+        // Initialize the FFMpegConverter class
+        public static FFMpegConverter ffMpeg = new FFMpegConverter();
+
         // The array of supported file extensions
         private static string[] mediaExtensions = {
                                                   ".mp4",".mkv",".avi",".mov",".mpeg",
@@ -21,11 +25,22 @@ namespace VideoConverter
         //
         public void Process(string[] mediaFiles, int toFormatcomboBoxIndex, int fromFormatcomboBoxIndex)
         {
+            VideoConverterForm.threadStatus = true;
+
+            // Determine how long is remaining and the current progress of the process.
+            ffMpeg.ConvertProgress += (o, args) =>
+            {
+                VideoConverterForm.conversionProgress = (String.Format("Progress: {0:HH:mm:ss}/{1:HH:mm:ss}", new DateTime(args.Processed.Ticks), new DateTime(args.TotalDuration.Ticks)));
+                VideoConverterForm.currentProgress = (int)((args.Processed.TotalSeconds / args.TotalDuration.TotalSeconds) * 100);
+            };
+
             // For loop to go through each file.
             foreach (string file in mediaFiles)
             {
                 ConvertFile(file, toFormatcomboBoxIndex, fromFormatcomboBoxIndex);
             }
+
+            VideoConverterForm.threadStatus = false;
         }
 
         // Converts a single media file.
@@ -48,6 +63,9 @@ namespace VideoConverter
             if (((fromFormatcomboBoxIndex == 0 && IsMediaFile(file)) || (fromFormatcomboBoxIndex != 0 &&
                 Path.GetExtension(file) == mediaExtensions[fromFormatcomboBoxIndex - 1])) && Path.GetExtension(file) != mediaExtensions[toFormatcomboBoxIndex])
             {
+                // Determine which file is currently being processed.
+                VideoConverterForm.currentFile = "Currently Processing: " + Path.GetFileName(file);
+
                 // Create the new file name.
                 string newFile = file.Substring(0, file.Length - Path.GetExtension(file).Length) + mediaExtensions[toFormatcomboBoxIndex];
                 string format = formats[toFormatcomboBoxIndex];
@@ -63,7 +81,6 @@ namespace VideoConverter
                     ConvertSettings VideoSettings = new ConvertSettings();
 
                     // Converts the file to the selected format.
-                    FFMpegConverter ffMpeg = new FFMpegConverter();
                     ffMpeg.ConvertMedia(file, oldFormat, newFile, format, VideoSettings);
                     return true;
                 }

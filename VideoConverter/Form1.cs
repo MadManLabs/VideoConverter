@@ -1,12 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Threading;
 using System.Windows.Forms;
+using NReco.VideoConverter;
 
 namespace VideoConverter
 {
@@ -20,32 +15,90 @@ namespace VideoConverter
             toFormatcomboBox.SelectedIndex = 0;
         }
 
+        // Various variables for global use.
+        Thread thread;
+        public static bool threadStatus = false;
+        public static string conversionProgress = "";
+        public static int currentProgress = 0;
+        public static string currentFile = "";
+
         private void Startbutton_Click(object sender, EventArgs e)
         {
-            // Determines if a folder has been selected or not.
-            if (!String.IsNullOrEmpty(OpenFiletextBox.Text))
+            if (!threadStatus)
             {
-                // Determine the files to be converted and the format to be converted to.
-                string[] mediaFiles = new string[1];
-                mediaFiles[0] = OpenFiletextBox.Text;
+                // Determines if a folder has been selected or not.
+                if (!String.IsNullOrEmpty(OpenFiletextBox.Text))
+                {
+                    // Determine the files to be converted and the format to be converted to.
+                    string[] mediaFiles = new string[1];
+                    mediaFiles[0] = OpenFiletextBox.Text;
 
-                int fromFormatcomboBoxIndex = fromFormatcomboBox.SelectedIndex;
-                int toFormatcomboBoxIndex = toFormatcomboBox.SelectedIndex;
+                    int fromFormatcomboBoxIndex = fromFormatcomboBox.SelectedIndex;
+                    int toFormatcomboBoxIndex = toFormatcomboBox.SelectedIndex;
 
-                // Starts a thread to run the conversion process.
-                Converter converter = new Converter();
-                converter.Process(mediaFiles, toFormatcomboBoxIndex, fromFormatcomboBoxIndex);
+                    // Disable user interactive objects.
+                    OpenFilebutton.Enabled = false;
+                    Startbutton.Enabled = false;
+                    OpenFiletextBox.Enabled = false;
+                    fromFormatcomboBox.Enabled = false;
+                    toFormatcomboBox.Enabled = false;
+
+                    // Starts a thread to run the conversion process.
+                    Converter converter = new Converter();
+                    thread = new Thread(() => converter.Process(mediaFiles, toFormatcomboBoxIndex, fromFormatcomboBoxIndex));
+                    thread.Start();
+
+                    // Start a timer to update the progressLabel and progressBar every second.
+                    System.Windows.Forms.Timer timer = new System.Windows.Forms.Timer();
+                    timer.Tick += new EventHandler((obj, Ev) => TimerEventProcessor(obj, Ev));
+                    timer.Interval = 1000;
+                    timer.Start();
+                }
+                // Otherwise display a message to the user.
+                else
+                {
+                    MessageBox.Show("Please make sure you have selected a folder then try again");
+                }
             }
-            // Otherwise display a message to the user.
+        }
+
+        // Updates the form every second.
+        // \param path mediaFiles - The files to be converted.
+        //
+        private void TimerEventProcessor(object sender, EventArgs e)
+        {
+            // If the thread is running update the progressBar, progressLabel and Processinglabel.
+            if (threadStatus)
+            {
+                Progresslabel.Text = conversionProgress;
+                progressBar.Value = currentProgress;
+                Processinglabel.Text = currentFile;
+            }
+            // Otherwise ensure the progressBar, progressLabel are reset.
+            // and if the the DeletecheckBox is checked and the process finishes delete the file.
             else
             {
-                MessageBox.Show("Please make sure you have selected a folder then try again");
+                // Reenable user interactive objects and reset progressLabel, progressBar and Processinglabel.
+                OpenFilebutton.Enabled = true;
+                Startbutton.Enabled = true;
+                OpenFiletextBox.Enabled = true;
+                toFormatcomboBox.Enabled = true;
+                fromFormatcomboBox.Enabled = true;
+                Processinglabel.Text = "Currently Processing: ";
+                Progresslabel.Text = "Progress 00:00:00/00:00:00";
+                progressBar.Value = 0;
             }
         }
 
         // Exits the application if the Exitbutton is clicked.
         private void Exitbutton_Click(object sender, EventArgs e)
         {
+            if (threadStatus)
+            {
+                thread.Abort();
+                Converter.ffMpeg.Abort();
+            }
+
             Application.Exit();
         }
 
