@@ -43,9 +43,16 @@ namespace VideoConverter
                     {
                         mediaFiles[0] = OpenFiletextBox.Text;
                     }
-                    else
+                    else if (!String.IsNullOrEmpty(OpenFoldertextBox.Text))
                     {
-                        mediaFiles = Directory.GetFiles(OpenFoldertextBox.Text);
+                        if (subDircheckBox.Checked)
+                        {
+                            mediaFiles = Directory.GetFiles(OpenFoldertextBox.Text, "*.*", SearchOption.AllDirectories);
+                        }
+                        else
+                        {
+                            mediaFiles = Directory.GetFiles(OpenFoldertextBox.Text);
+                        }
                     }
 
                     int fromFormatcomboBoxIndex = fromFormatcomboBox.SelectedIndex;

@@ -48,6 +48,7 @@
             this.OpenFolderbutton = new System.Windows.Forms.Button();
             this.OpenFoldertextBox = new System.Windows.Forms.TextBox();
             this.openFolderDialog1 = new System.Windows.Forms.FolderBrowserDialog();
+            this.subDircheckBox = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // OpenFilebutton
@@ -242,11 +243,24 @@
             this.OpenFoldertextBox.Size = new System.Drawing.Size(115, 20);
             this.OpenFoldertextBox.TabIndex = 17;
             // 
+            // subDircheckBox
+            // 
+            this.subDircheckBox.AutoSize = true;
+            this.subDircheckBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F);
+            this.subDircheckBox.Location = new System.Drawing.Point(58, 167);
+            this.subDircheckBox.Name = "subDircheckBox";
+            this.subDircheckBox.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.subDircheckBox.Size = new System.Drawing.Size(178, 22);
+            this.subDircheckBox.TabIndex = 18;
+            this.subDircheckBox.Text = "Convert Subdirectories";
+            this.subDircheckBox.UseVisualStyleBackColor = true;
+            // 
             // VideoConverterForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(434, 411);
+            this.Controls.Add(this.subDircheckBox);
             this.Controls.Add(this.OpenFoldertextBox);
             this.Controls.Add(this.OpenFolderbutton);
             this.Controls.Add(this.ASRatecomboBox);
@@ -293,6 +307,7 @@
         private System.Windows.Forms.Button OpenFolderbutton;
         private System.Windows.Forms.TextBox OpenFoldertextBox;
         private System.Windows.Forms.FolderBrowserDialog openFolderDialog1;
+        private System.Windows.Forms.CheckBox subDircheckBox;
     }
 }
 
