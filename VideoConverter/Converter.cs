@@ -23,7 +23,7 @@ namespace VideoConverter
         // \param int toFormatcomboBoxIndex - The index of the format to be converted to.
         // \param int fromFormatcomboBoxIndex - The index of the format to be converted from.
         //
-        public void Process(string[] mediaFiles, int toFormatcomboBoxIndex, int fromFormatcomboBoxIndex)
+        public void Process(string[] mediaFiles, int toFormatcomboBoxIndex, int fromFormatcomboBoxIndex, string VFramerate, string ASRate)
         {
             VideoConverterForm.threadStatus = true;
 
@@ -34,10 +34,20 @@ namespace VideoConverter
                 VideoConverterForm.currentProgress = (int)((args.Processed.TotalSeconds / args.TotalDuration.TotalSeconds) * 100);
             };
 
+            ConvertSettings VideoSettings = new ConvertSettings();
+            if (VFramerate != "Default")
+            {
+                VideoSettings.VideoFrameRate = Convert.ToInt32(VFramerate);
+            }
+            if (ASRate != "Default")
+            {
+                VideoSettings.AudioSampleRate = Convert.ToInt32(ASRate);
+            }
+
             // For loop to go through each file.
             foreach (string file in mediaFiles)
             {
-                ConvertFile(file, toFormatcomboBoxIndex, fromFormatcomboBoxIndex);
+                ConvertFile(file, toFormatcomboBoxIndex, fromFormatcomboBoxIndex, VideoSettings);
             }
 
             VideoConverterForm.threadStatus = false;
@@ -50,7 +60,7 @@ namespace VideoConverter
         // \param int fromFormatcomboBoxIndex - The index of the format to be converted from.
         // \return bool - True if media file is converted correctly otherwise false.
         //
-        public bool ConvertFile(String file, int toFormatcomboBoxIndex, int fromFormatcomboBoxIndex)
+        public bool ConvertFile(String file, int toFormatcomboBoxIndex, int fromFormatcomboBoxIndex, ConvertSettings VideoSettings)
         {
             // The array of supported file formats
             string[] formats = {
@@ -77,9 +87,6 @@ namespace VideoConverter
 
                 try
                 {
-                    // Initialize Video Settings
-                    ConvertSettings VideoSettings = new ConvertSettings();
-
                     // Converts the file to the selected format.
                     ffMpeg.ConvertMedia(file, oldFormat, newFile, format, VideoSettings);
                     return true;

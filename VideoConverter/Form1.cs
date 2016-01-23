@@ -7,12 +7,18 @@ namespace VideoConverter
 {
     public partial class VideoConverterForm : Form
     {
+        // Initalises the form and sets the fromFormatcomboBox to All and the toFormatcomboBox to .mp4. 
+        // Also sets the VFrameratetextBox to Default and the ASRatecomboBox to Default.
         public VideoConverterForm()
         {
             InitializeComponent();
 
+            this.Height = 375;
             fromFormatcomboBox.SelectedIndex = 0;
             toFormatcomboBox.SelectedIndex = 0;
+
+            VFrameratetextBox.Text = "Default";
+            ASRatecomboBox.SelectedIndex = 0;
         }
 
         // Various variables for global use.
@@ -22,6 +28,7 @@ namespace VideoConverter
         public static int currentProgress = 0;
         public static string currentFile = "";
 
+        // Converts all the media files in the folder to the selected format.
         private void Startbutton_Click(object sender, EventArgs e)
         {
             if (!threadStatus)
@@ -35,6 +42,8 @@ namespace VideoConverter
 
                     int fromFormatcomboBoxIndex = fromFormatcomboBox.SelectedIndex;
                     int toFormatcomboBoxIndex = toFormatcomboBox.SelectedIndex;
+                    string VFramerate = VFrameratetextBox.Text;
+                    string ASRate = ASRatecomboBox.SelectedItem.ToString();
 
                     // Disable user interactive objects.
                     OpenFilebutton.Enabled = false;
@@ -42,10 +51,13 @@ namespace VideoConverter
                     OpenFiletextBox.Enabled = false;
                     fromFormatcomboBox.Enabled = false;
                     toFormatcomboBox.Enabled = false;
+                    Settingsbutton.Enabled = false;
+                    VFrameratetextBox.Enabled = false;
+                    ASRatecomboBox.Enabled = false;
 
                     // Starts a thread to run the conversion process.
                     Converter converter = new Converter();
-                    thread = new Thread(() => converter.Process(mediaFiles, toFormatcomboBoxIndex, fromFormatcomboBoxIndex));
+                    thread = new Thread(() => converter.Process(mediaFiles, toFormatcomboBoxIndex, fromFormatcomboBoxIndex, VFramerate, ASRate));
                     thread.Start();
 
                     // Start a timer to update the progressLabel and progressBar every second.
@@ -87,6 +99,9 @@ namespace VideoConverter
                 Processinglabel.Text = "Currently Processing: ";
                 Progresslabel.Text = "Progress 00:00:00/00:00:00";
                 progressBar.Value = 0;
+                Settingsbutton.Enabled = true;
+                VFrameratetextBox.Enabled = true;
+                ASRatecomboBox.Enabled = true;
             }
         }
 
@@ -112,6 +127,19 @@ namespace VideoConverter
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
                 OpenFiletextBox.Text = Convert.ToString(openFileDialog1.FileName);
+            }
+        }
+
+        // Toggles the form size when the Settingsbutton is clicked to show/unshow the advanced settings.
+        private void Settingsbutton_Click(object sender, EventArgs e)
+        {
+            if (this.Height == 450)
+            {
+                this.Height = 375;
+            }
+            else
+            {
+                this.Height = 450;
             }
         }
     }

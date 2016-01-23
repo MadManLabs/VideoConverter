@@ -40,6 +40,11 @@
             this.Processinglabel = new System.Windows.Forms.Label();
             this.Progresslabel = new System.Windows.Forms.Label();
             this.progressBar = new System.Windows.Forms.ProgressBar();
+            this.Settingsbutton = new System.Windows.Forms.Button();
+            this.ASRatelabel = new System.Windows.Forms.Label();
+            this.VFrameratelabel = new System.Windows.Forms.Label();
+            this.VFrameratetextBox = new System.Windows.Forms.TextBox();
+            this.ASRatecomboBox = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // OpenFilebutton
@@ -165,11 +170,68 @@
             this.progressBar.Size = new System.Drawing.Size(410, 23);
             this.progressBar.TabIndex = 10;
             // 
+            // Settingsbutton
+            // 
+            this.Settingsbutton.Location = new System.Drawing.Point(12, 297);
+            this.Settingsbutton.Name = "Settingsbutton";
+            this.Settingsbutton.Size = new System.Drawing.Size(410, 23);
+            this.Settingsbutton.TabIndex = 11;
+            this.Settingsbutton.Text = "Advanced Settings";
+            this.Settingsbutton.UseVisualStyleBackColor = true;
+            this.Settingsbutton.Click += new System.EventHandler(this.Settingsbutton_Click);
+            // 
+            // ASRatelabel
+            // 
+            this.ASRatelabel.AutoSize = true;
+            this.ASRatelabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F);
+            this.ASRatelabel.Location = new System.Drawing.Point(12, 362);
+            this.ASRatelabel.Name = "ASRatelabel";
+            this.ASRatelabel.Size = new System.Drawing.Size(134, 18);
+            this.ASRatelabel.TabIndex = 12;
+            this.ASRatelabel.Text = "Audio Sample Rate";
+            // 
+            // VFrameratelabel
+            // 
+            this.VFrameratelabel.AutoSize = true;
+            this.VFrameratelabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F);
+            this.VFrameratelabel.Location = new System.Drawing.Point(12, 336);
+            this.VFrameratelabel.Name = "VFrameratelabel";
+            this.VFrameratelabel.Size = new System.Drawing.Size(117, 18);
+            this.VFrameratelabel.TabIndex = 13;
+            this.VFrameratelabel.Text = "Video Framerate";
+            // 
+            // VFrameratetextBox
+            // 
+            this.VFrameratetextBox.Location = new System.Drawing.Point(152, 336);
+            this.VFrameratetextBox.Name = "VFrameratetextBox";
+            this.VFrameratetextBox.Size = new System.Drawing.Size(121, 20);
+            this.VFrameratetextBox.TabIndex = 14;
+            // 
+            // ASRatecomboBox
+            // 
+            this.ASRatecomboBox.FormattingEnabled = true;
+            this.ASRatecomboBox.Items.AddRange(new object[] {
+            "Default",
+            "8000",
+            "11025",
+            "22050",
+            "44100",
+            "48000"});
+            this.ASRatecomboBox.Location = new System.Drawing.Point(152, 362);
+            this.ASRatecomboBox.Name = "ASRatecomboBox";
+            this.ASRatecomboBox.Size = new System.Drawing.Size(121, 21);
+            this.ASRatecomboBox.TabIndex = 15;
+            // 
             // VideoConverterForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(434, 411);
+            this.Controls.Add(this.ASRatecomboBox);
+            this.Controls.Add(this.VFrameratetextBox);
+            this.Controls.Add(this.VFrameratelabel);
+            this.Controls.Add(this.ASRatelabel);
+            this.Controls.Add(this.Settingsbutton);
             this.Controls.Add(this.progressBar);
             this.Controls.Add(this.Progresslabel);
             this.Controls.Add(this.Processinglabel);
@@ -201,6 +263,11 @@
         private System.Windows.Forms.Label Processinglabel;
         private System.Windows.Forms.Label Progresslabel;
         private System.Windows.Forms.ProgressBar progressBar;
+        private System.Windows.Forms.Button Settingsbutton;
+        private System.Windows.Forms.Label ASRatelabel;
+        private System.Windows.Forms.Label VFrameratelabel;
+        private System.Windows.Forms.TextBox VFrameratetextBox;
+        private System.Windows.Forms.ComboBox ASRatecomboBox;
     }
 }
 
