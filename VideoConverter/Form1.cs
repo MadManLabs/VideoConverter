@@ -57,24 +57,27 @@ namespace VideoConverter
 
                     int fromFormatcomboBoxIndex = fromFormatcomboBox.SelectedIndex;
                     int toFormatcomboBoxIndex = toFormatcomboBox.SelectedIndex;
+                    bool deleteAll = DeletecheckBox.Checked;
                     string VFramerate = VFrameratetextBox.Text;
                     string ASRate = ASRatecomboBox.SelectedItem.ToString();
 
                     // Disable user interactive objects.
                     OpenFilebutton.Enabled = false;
-                    OpenFolderbutton.Enabled = true;
+                    OpenFolderbutton.Enabled = false;
                     Startbutton.Enabled = false;
                     OpenFiletextBox.Enabled = false;
-                    OpenFoldertextBox.Enabled = true;
+                    OpenFoldertextBox.Enabled = false;
                     fromFormatcomboBox.Enabled = false;
                     toFormatcomboBox.Enabled = false;
                     Settingsbutton.Enabled = false;
                     VFrameratetextBox.Enabled = false;
                     ASRatecomboBox.Enabled = false;
+                    DeletecheckBox.Enabled = false;
+                    subDircheckBox.Enabled = false;
 
                     // Starts a thread to run the conversion process.
                     Converter converter = new Converter();
-                    thread = new Thread(() => converter.Process(mediaFiles, toFormatcomboBoxIndex, fromFormatcomboBoxIndex, VFramerate, ASRate));
+                    thread = new Thread(() => converter.Process(mediaFiles, toFormatcomboBoxIndex, fromFormatcomboBoxIndex, deleteAll, VFramerate, ASRate));
                     thread.Start();
 
                     // Start a timer to update the progressLabel and progressBar every second.
@@ -121,6 +124,8 @@ namespace VideoConverter
                 Settingsbutton.Enabled = true;
                 VFrameratetextBox.Enabled = true;
                 ASRatecomboBox.Enabled = true;
+                DeletecheckBox.Enabled = true;
+                subDircheckBox.Enabled = true;
             }
         }
 

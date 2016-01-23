@@ -49,6 +49,7 @@
             this.OpenFoldertextBox = new System.Windows.Forms.TextBox();
             this.openFolderDialog1 = new System.Windows.Forms.FolderBrowserDialog();
             this.subDircheckBox = new System.Windows.Forms.CheckBox();
+            this.DeletecheckBox = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // OpenFilebutton
@@ -247,7 +248,7 @@
             // 
             this.subDircheckBox.AutoSize = true;
             this.subDircheckBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F);
-            this.subDircheckBox.Location = new System.Drawing.Point(58, 167);
+            this.subDircheckBox.Location = new System.Drawing.Point(61, 195);
             this.subDircheckBox.Name = "subDircheckBox";
             this.subDircheckBox.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.subDircheckBox.Size = new System.Drawing.Size(178, 22);
@@ -255,11 +256,24 @@
             this.subDircheckBox.Text = "Convert Subdirectories";
             this.subDircheckBox.UseVisualStyleBackColor = true;
             // 
+            // DeletecheckBox
+            // 
+            this.DeletecheckBox.AutoSize = true;
+            this.DeletecheckBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F);
+            this.DeletecheckBox.Location = new System.Drawing.Point(27, 167);
+            this.DeletecheckBox.Name = "DeletecheckBox";
+            this.DeletecheckBox.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.DeletecheckBox.Size = new System.Drawing.Size(212, 22);
+            this.DeletecheckBox.TabIndex = 19;
+            this.DeletecheckBox.Text = "Delete files after Conversion";
+            this.DeletecheckBox.UseVisualStyleBackColor = true;
+            // 
             // VideoConverterForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(434, 411);
+            this.Controls.Add(this.DeletecheckBox);
             this.Controls.Add(this.subDircheckBox);
             this.Controls.Add(this.OpenFoldertextBox);
             this.Controls.Add(this.OpenFolderbutton);
@@ -308,6 +322,7 @@
         private System.Windows.Forms.TextBox OpenFoldertextBox;
         private System.Windows.Forms.FolderBrowserDialog openFolderDialog1;
         private System.Windows.Forms.CheckBox subDircheckBox;
+        private System.Windows.Forms.CheckBox DeletecheckBox;
     }
 }
 

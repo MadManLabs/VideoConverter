@@ -26,7 +26,7 @@ namespace VideoConverter.Tests
         {
             Converter converter = new Converter();
             ConvertSettings VideoSettings = new ConvertSettings();
-            bool result = converter.ConvertFile(currentPath + "\\SampleVideo.mp4", 1, 1, VideoSettings);
+            bool result = converter.ConvertFile(currentPath + "\\SampleVideo.mp4", 1, 1, false, VideoSettings);
             Assert.AreEqual(true, result);
         }
 
@@ -35,7 +35,7 @@ namespace VideoConverter.Tests
         {
             Converter converter = new Converter();
             ConvertSettings VideoSettings = new ConvertSettings();
-            bool result = converter.ConvertFile(currentPath + "\\SampleVideo.mp4", 2, 1, VideoSettings);
+            bool result = converter.ConvertFile(currentPath + "\\SampleVideo.mp4", 2, 1, false, VideoSettings);
             Assert.AreEqual(true, result);
         }
 
@@ -44,7 +44,7 @@ namespace VideoConverter.Tests
         {
             Converter converter = new Converter();
             ConvertSettings VideoSettings = new ConvertSettings();
-            bool result = converter.ConvertFile(currentPath + "\\SampleVideo.mp4", 3, 1, VideoSettings);
+            bool result = converter.ConvertFile(currentPath + "\\SampleVideo.mp4", 3, 1, false, VideoSettings);
             Assert.AreEqual(true, result);
         }
 
@@ -53,7 +53,7 @@ namespace VideoConverter.Tests
         {
             Converter converter = new Converter();
             ConvertSettings VideoSettings = new ConvertSettings();
-            bool result = converter.ConvertFile(currentPath + "\\SampleVideo.mp4", 4, 1, VideoSettings);
+            bool result = converter.ConvertFile(currentPath + "\\SampleVideo.mp4", 4, 1, false, VideoSettings);
             Assert.AreEqual(true, result);
         }
 
@@ -62,7 +62,7 @@ namespace VideoConverter.Tests
         {
             Converter converter = new Converter();
             ConvertSettings VideoSettings = new ConvertSettings();
-            bool result = converter.ConvertFile(currentPath + "\\SampleVideo.mp4", 5, 1, VideoSettings);
+            bool result = converter.ConvertFile(currentPath + "\\SampleVideo.mp4", 5, 1, false, VideoSettings);
             Assert.AreEqual(true, result);
         }
 
@@ -71,7 +71,7 @@ namespace VideoConverter.Tests
         {
             Converter converter = new Converter();
             ConvertSettings VideoSettings = new ConvertSettings();
-            bool result = converter.ConvertFile(currentPath + "\\SampleVideo.mp4", 6, 1, VideoSettings);
+            bool result = converter.ConvertFile(currentPath + "\\SampleVideo.mp4", 6, 1, false, VideoSettings);
             Assert.AreEqual(true, result);
         }
 
@@ -80,7 +80,7 @@ namespace VideoConverter.Tests
         {
             Converter converter = new Converter();
             ConvertSettings VideoSettings = new ConvertSettings();
-            bool result = converter.ConvertFile(currentPath + "\\SampleVideo.mp4", 7, 1, VideoSettings);
+            bool result = converter.ConvertFile(currentPath + "\\SampleVideo.mp4", 7, 1, false, VideoSettings);
             Assert.AreEqual(true, result);
         }
 
@@ -89,7 +89,7 @@ namespace VideoConverter.Tests
         {
             Converter converter = new Converter();
             ConvertSettings VideoSettings = new ConvertSettings();
-            bool result = converter.ConvertFile(currentPath + "\\SampleVideo.avi", 0, 3, VideoSettings);
+            bool result = converter.ConvertFile(currentPath + "\\SampleVideo.avi", 0, 3, false, VideoSettings);
             Assert.AreEqual(true, result);
         }
 
@@ -98,7 +98,7 @@ namespace VideoConverter.Tests
         {
             Converter converter = new Converter();
             ConvertSettings VideoSettings = new ConvertSettings();
-            bool result = converter.ConvertFile(currentPath + "\\SampleVideo.docx", 1, 1, VideoSettings);
+            bool result = converter.ConvertFile(currentPath + "\\SampleVideo.docx", 1, 1, false, VideoSettings);
             Assert.AreEqual(false, result);
         }
 
@@ -108,7 +108,7 @@ namespace VideoConverter.Tests
             Converter converter = new Converter();
             ConvertSettings VideoSettings = new ConvertSettings();
             VideoSettings.AudioSampleRate = Convert.ToInt32("60");
-            bool result = converter.ConvertFile(currentPath + "\\SampleVideo.mp4", 1, 1, VideoSettings);
+            bool result = converter.ConvertFile(currentPath + "\\SampleVideo.mp4", 1, 1, false, VideoSettings);
             Assert.AreEqual(true, result);
         }
 
@@ -118,7 +118,7 @@ namespace VideoConverter.Tests
             Converter converter = new Converter();
             ConvertSettings VideoSettings = new ConvertSettings();
             VideoSettings.VideoFrameRate = Convert.ToInt32("8000");
-            bool result = converter.ConvertFile(currentPath + "\\SampleVideo.mp4", 1, 1, VideoSettings);
+            bool result = converter.ConvertFile(currentPath + "\\SampleVideo.mp4", 1, 1, false, VideoSettings);
             Assert.AreEqual(true, result);
         }
     }

@@ -23,7 +23,7 @@ namespace VideoConverter
         // \param int toFormatcomboBoxIndex - The index of the format to be converted to.
         // \param int fromFormatcomboBoxIndex - The index of the format to be converted from.
         //
-        public void Process(string[] mediaFiles, int toFormatcomboBoxIndex, int fromFormatcomboBoxIndex, string VFramerate, string ASRate)
+        public void Process(string[] mediaFiles, int toFormatcomboBoxIndex, int fromFormatcomboBoxIndex, bool deleteAll, string VFramerate, string ASRate)
         {
             VideoConverterForm.threadStatus = true;
 
@@ -47,7 +47,7 @@ namespace VideoConverter
             // For loop to go through each file.
             foreach (string file in mediaFiles)
             {
-                ConvertFile(file, toFormatcomboBoxIndex, fromFormatcomboBoxIndex, VideoSettings);
+                ConvertFile(file, toFormatcomboBoxIndex, fromFormatcomboBoxIndex, deleteAll, VideoSettings);
             }
 
             VideoConverterForm.threadStatus = false;
@@ -60,7 +60,7 @@ namespace VideoConverter
         // \param int fromFormatcomboBoxIndex - The index of the format to be converted from.
         // \return bool - True if media file is converted correctly otherwise false.
         //
-        public bool ConvertFile(String file, int toFormatcomboBoxIndex, int fromFormatcomboBoxIndex, ConvertSettings VideoSettings)
+        public bool ConvertFile(String file, int toFormatcomboBoxIndex, int fromFormatcomboBoxIndex, bool deleteAll, ConvertSettings VideoSettings)
         {
             // The array of supported file formats
             string[] formats = {
@@ -89,6 +89,13 @@ namespace VideoConverter
                 {
                     // Converts the file to the selected format.
                     ffMpeg.ConvertMedia(file, oldFormat, newFile, format, VideoSettings);
+
+                    // Deletes the files if the checkbox is checked.
+                    if (deleteAll)
+                    {
+                        File.Delete(file);
+                    }
+
                     return true;
                 }
                 catch
