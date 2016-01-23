@@ -45,6 +45,9 @@
             this.VFrameratelabel = new System.Windows.Forms.Label();
             this.VFrameratetextBox = new System.Windows.Forms.TextBox();
             this.ASRatecomboBox = new System.Windows.Forms.ComboBox();
+            this.OpenFolderbutton = new System.Windows.Forms.Button();
+            this.OpenFoldertextBox = new System.Windows.Forms.TextBox();
+            this.openFolderDialog1 = new System.Windows.Forms.FolderBrowserDialog();
             this.SuspendLayout();
             // 
             // OpenFilebutton
@@ -59,7 +62,7 @@
             // 
             // Startbutton
             // 
-            this.Startbutton.Location = new System.Drawing.Point(12, 37);
+            this.Startbutton.Location = new System.Drawing.Point(12, 60);
             this.Startbutton.Name = "Startbutton";
             this.Startbutton.Size = new System.Drawing.Size(100, 20);
             this.Startbutton.TabIndex = 1;
@@ -69,7 +72,7 @@
             // 
             // Exitbutton
             // 
-            this.Exitbutton.Location = new System.Drawing.Point(12, 66);
+            this.Exitbutton.Location = new System.Drawing.Point(12, 86);
             this.Exitbutton.Name = "Exitbutton";
             this.Exitbutton.Size = new System.Drawing.Size(100, 20);
             this.Exitbutton.TabIndex = 2;
@@ -101,7 +104,7 @@
             ".ogg",
             ".flv",
             ".webm"});
-            this.fromFormatcomboBox.Location = new System.Drawing.Point(118, 90);
+            this.fromFormatcomboBox.Location = new System.Drawing.Point(118, 113);
             this.fromFormatcomboBox.Name = "fromFormatcomboBox";
             this.fromFormatcomboBox.Size = new System.Drawing.Size(121, 21);
             this.fromFormatcomboBox.TabIndex = 4;
@@ -118,7 +121,7 @@
             ".ogg",
             ".flv",
             ".webm"});
-            this.toFormatcomboBox.Location = new System.Drawing.Point(118, 117);
+            this.toFormatcomboBox.Location = new System.Drawing.Point(118, 140);
             this.toFormatcomboBox.Name = "toFormatcomboBox";
             this.toFormatcomboBox.Size = new System.Drawing.Size(121, 21);
             this.toFormatcomboBox.TabIndex = 5;
@@ -127,7 +130,7 @@
             // 
             this.fromFormatlabel.AutoSize = true;
             this.fromFormatlabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F);
-            this.fromFormatlabel.Location = new System.Drawing.Point(12, 89);
+            this.fromFormatlabel.Location = new System.Drawing.Point(12, 112);
             this.fromFormatlabel.Name = "fromFormatlabel";
             this.fromFormatlabel.Size = new System.Drawing.Size(100, 18);
             this.fromFormatlabel.TabIndex = 6;
@@ -137,7 +140,7 @@
             // 
             this.toFormatlabel.AutoSize = true;
             this.toFormatlabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F);
-            this.toFormatlabel.Location = new System.Drawing.Point(12, 116);
+            this.toFormatlabel.Location = new System.Drawing.Point(12, 139);
             this.toFormatlabel.Name = "toFormatlabel";
             this.toFormatlabel.Size = new System.Drawing.Size(82, 18);
             this.toFormatlabel.TabIndex = 7;
@@ -222,11 +225,30 @@
             this.ASRatecomboBox.Size = new System.Drawing.Size(121, 21);
             this.ASRatecomboBox.TabIndex = 15;
             // 
+            // OpenFolderbutton
+            // 
+            this.OpenFolderbutton.Location = new System.Drawing.Point(12, 34);
+            this.OpenFolderbutton.Name = "OpenFolderbutton";
+            this.OpenFolderbutton.Size = new System.Drawing.Size(100, 20);
+            this.OpenFolderbutton.TabIndex = 16;
+            this.OpenFolderbutton.Text = "Open Folder";
+            this.OpenFolderbutton.UseVisualStyleBackColor = true;
+            this.OpenFolderbutton.Click += new System.EventHandler(this.OpenFolderbutton_Click);
+            // 
+            // OpenFoldertextBox
+            // 
+            this.OpenFoldertextBox.Location = new System.Drawing.Point(118, 34);
+            this.OpenFoldertextBox.Name = "OpenFoldertextBox";
+            this.OpenFoldertextBox.Size = new System.Drawing.Size(115, 20);
+            this.OpenFoldertextBox.TabIndex = 17;
+            // 
             // VideoConverterForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(434, 411);
+            this.Controls.Add(this.OpenFoldertextBox);
+            this.Controls.Add(this.OpenFolderbutton);
             this.Controls.Add(this.ASRatecomboBox);
             this.Controls.Add(this.VFrameratetextBox);
             this.Controls.Add(this.VFrameratelabel);
@@ -268,6 +290,9 @@
         private System.Windows.Forms.Label VFrameratelabel;
         private System.Windows.Forms.TextBox VFrameratetextBox;
         private System.Windows.Forms.ComboBox ASRatecomboBox;
+        private System.Windows.Forms.Button OpenFolderbutton;
+        private System.Windows.Forms.TextBox OpenFoldertextBox;
+        private System.Windows.Forms.FolderBrowserDialog openFolderDialog1;
     }
 }
 
