@@ -121,5 +121,34 @@ namespace VideoConverter.Tests
             bool result = converter.ConvertFile(currentPath + "\\SampleVideo.mp4", 1, 1, false, VideoSettings);
             Assert.AreEqual(true, result);
         }
+
+        [TestMethod]
+        public void TestFolderConversion()
+        {
+            Converter converter = new Converter();
+            ConvertSettings VideoSettings = new ConvertSettings();
+            bool result = converter.ConvertFolder(currentPath, 1, 1, false, false, VideoSettings);
+            Assert.AreEqual(true, result);
+        }
+
+        [TestMethod]
+        public void TestSubdirConversion()
+        {
+            Converter converter = new Converter();
+            ConvertSettings VideoSettings = new ConvertSettings();
+            bool result = converter.ConvertFolder(currentPath + "../", 1, 1, false, true, VideoSettings);
+            Assert.AreEqual(true, result);
+        }
+
+        [TestMethod]
+        public void TestDeleteConversion()
+        {
+            Converter converter = new Converter();
+            ConvertSettings VideoSettings = new ConvertSettings();
+            converter.ConvertFile(currentPath + "//SampleVideo.mp4", 1, 1, false, VideoSettings);
+            bool result = converter.ConvertFile(currentPath + "//SampleVideo.mkv", 0, 2, true, VideoSettings);
+            Assert.AreEqual(true, result);
+            Assert.AreEqual(false, File.Exists(currentPath + "//SampleVideo.mkv"));
+        }
     }
 }
