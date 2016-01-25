@@ -2,6 +2,7 @@
 using System.IO;
 using NReco.VideoConverter;
 using System.Windows.Forms;
+using System.Linq;
 
 namespace VideoConverter
 {
@@ -23,7 +24,7 @@ namespace VideoConverter
         // \param int toFormatcomboBoxIndex - The index of the format to be converted to.
         // \param int fromFormatcomboBoxIndex - The index of the format to be converted from.
         //
-        public void Process(string[] mediaFiles, int toFormatcomboBoxIndex, int fromFormatcomboBoxIndex, bool deleteAll, string VFramerate, string ASRate)
+        public void Process(string fileTextBox, string folderTextBox, int toFormatcomboBoxIndex, int fromFormatcomboBoxIndex, bool deleteAll, bool subDir, string VFramerate, string ASRate)
         {
             VideoConverterForm.threadStatus = true;
 
@@ -34,6 +35,7 @@ namespace VideoConverter
                 VideoConverterForm.currentProgress = (int)((args.Processed.TotalSeconds / args.TotalDuration.TotalSeconds) * 100);
             };
 
+            // Set the video settings for the conversion
             ConvertSettings VideoSettings = new ConvertSettings();
             if (VFramerate != "Default")
             {
@@ -44,13 +46,50 @@ namespace VideoConverter
                 VideoSettings.AudioSampleRate = Convert.ToInt32(ASRate);
             }
 
-            // For loop to go through each file.
-            foreach (string file in mediaFiles)
+            // Determine if a folder or a file is to be converted
+            if (!String.IsNullOrEmpty(folderTextBox))
             {
-                ConvertFile(file, toFormatcomboBoxIndex, fromFormatcomboBoxIndex, deleteAll, VideoSettings);
+                ConvertFolder(folderTextBox, toFormatcomboBoxIndex, fromFormatcomboBoxIndex, deleteAll, subDir, VideoSettings);
+            }
+            else if(!String.IsNullOrEmpty(fileTextBox))
+            {
+                ConvertFile(fileTextBox, toFormatcomboBoxIndex, fromFormatcomboBoxIndex, deleteAll, VideoSettings);
             }
 
             VideoConverterForm.threadStatus = false;
+        }
+
+        // Converts a folder of media files.
+        //
+        // \param path folder - The folder to be converted.
+        // \param int toFormatcomboBoxIndex - The index of the format to be converted to.
+        // \param int fromFormatcomboBoxIndex - The index of the format to be converted from.
+        // \return bool - True if media file is converted correctly otherwise false.
+        //
+        public bool ConvertFolder(string folder, int toFormatcomboBoxIndex, int fromFormatcomboBoxIndex, bool deleteAll, bool subDir, ConvertSettings VideoSettings)
+        {
+            string[] mediaFiles = new string[1];
+            bool result = false;
+            if (subDir)
+            {
+                mediaFiles = Directory.GetFiles(folder, "*.*", SearchOption.AllDirectories);
+            }
+            else
+            {
+                mediaFiles = Directory.GetFiles(folder);
+            }
+
+            // For loop to go through each file.
+            foreach (string file in mediaFiles)
+            {
+                // If the file is a media file and it is not already the correct format.
+                if (((fromFormatcomboBoxIndex == 0 && IsMediaFile(file)) || (fromFormatcomboBoxIndex != 0 &&
+                    Path.GetExtension(file) == mediaExtensions[fromFormatcomboBoxIndex - 1])) && Path.GetExtension(file) != mediaExtensions[toFormatcomboBoxIndex])
+                {
+                    result = ConvertFile(file, toFormatcomboBoxIndex, fromFormatcomboBoxIndex, deleteAll, VideoSettings);
+                }
+            }
+            return result;
         }
 
         // Converts a single media file.
@@ -60,7 +99,7 @@ namespace VideoConverter
         // \param int fromFormatcomboBoxIndex - The index of the format to be converted from.
         // \return bool - True if media file is converted correctly otherwise false.
         //
-        public bool ConvertFile(String file, int toFormatcomboBoxIndex, int fromFormatcomboBoxIndex, bool deleteAll, ConvertSettings VideoSettings)
+        public bool ConvertFile(string file, int toFormatcomboBoxIndex, int fromFormatcomboBoxIndex, bool deleteAll, ConvertSettings VideoSettings)
         {
             // The array of supported file formats
             string[] formats = {
@@ -118,14 +157,7 @@ namespace VideoConverter
         //
         private bool IsMediaFile(string path)
         {
-            foreach (string extension in mediaExtensions)
-            {
-                if (Path.GetExtension(path) == extension)
-                {
-                    return true;
-                }
-            }
-            return false;
+            return mediaExtensions.Contains(Path.GetExtension(path));
         }
     }
 }

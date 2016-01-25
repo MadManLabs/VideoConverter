@@ -34,30 +34,15 @@ namespace VideoConverter
         {
             if (!threadStatus)
             {
-                // Determines if a folder has been selected or not.
+                // Determines if a folder or file has been selected or not.
                 if (!String.IsNullOrEmpty(OpenFoldertextBox.Text) || !String.IsNullOrEmpty(OpenFiletextBox.Text))
                 {
-                    // Determine the files to be converted and the format to be converted to.
-                    string[] mediaFiles = new string[1];
-                    if (!String.IsNullOrEmpty(OpenFiletextBox.Text))
-                    {
-                        mediaFiles[0] = OpenFiletextBox.Text;
-                    }
-                    else if (!String.IsNullOrEmpty(OpenFoldertextBox.Text))
-                    {
-                        if (subDircheckBox.Checked)
-                        {
-                            mediaFiles = Directory.GetFiles(OpenFoldertextBox.Text, "*.*", SearchOption.AllDirectories);
-                        }
-                        else
-                        {
-                            mediaFiles = Directory.GetFiles(OpenFoldertextBox.Text);
-                        }
-                    }
-
+                    string fileTextBox = OpenFiletextBox.Text;
+                    string folderTextBox = OpenFoldertextBox.Text;
                     int fromFormatcomboBoxIndex = fromFormatcomboBox.SelectedIndex;
                     int toFormatcomboBoxIndex = toFormatcomboBox.SelectedIndex;
                     bool deleteAll = DeletecheckBox.Checked;
+                    bool subDir = subDircheckBox.Checked;
                     string VFramerate = VFrameratetextBox.Text;
                     string ASRate = ASRatecomboBox.SelectedItem.ToString();
 
@@ -77,7 +62,7 @@ namespace VideoConverter
 
                     // Starts a thread to run the conversion process.
                     Converter converter = new Converter();
-                    thread = new Thread(() => converter.Process(mediaFiles, toFormatcomboBoxIndex, fromFormatcomboBoxIndex, deleteAll, VFramerate, ASRate));
+                    thread = new Thread(() => converter.Process(fileTextBox, folderTextBox, toFormatcomboBoxIndex, fromFormatcomboBoxIndex, deleteAll, subDir, VFramerate, ASRate));
                     thread.Start();
 
                     // Start a timer to update the progressLabel and progressBar every second.
@@ -89,7 +74,7 @@ namespace VideoConverter
                 // Otherwise display a message to the user.
                 else
                 {
-                    MessageBox.Show("Please make sure you have selected a folder then try again");
+                    MessageBox.Show("Please make sure you have selected a folder or file then try again");
                 }
             }
         }
